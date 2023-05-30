@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -134,16 +138,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-from .secrets import DB_PASS, SECRETS_HOST_NAME, SECRETS_PORT
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'diegoshop',
         'USER': 'diegoaccount',
-        'PASSWORD': DB_PASS,
-        'HOST': SECRETS_HOST_NAME,
-        'PORT': SECRETS_PORT,
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('SECRETS_HOST_NAME'),
+        'PORT': os.getenv('SECRETS_PORT'),
     }
 }
 
@@ -194,7 +196,6 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-from .secrets import SECRETS_AWS_STORAGE_BUCKET_NAME, SECRETS_AWS_S3_ACCESS_KEY_ID, SECRETS_AWS_S3_SECRET_ACCESS_KEY
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -203,10 +204,10 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
-AWS_S3_ACCESS_KEY_ID = SECRETS_AWS_S3_ACCESS_KEY_ID
-AWS_S3_SECRET_ACCESS_KEY = SECRETS_AWS_S3_SECRET_ACCESS_KEY
+AWS_S3_ACCESS_KEY_ID = os.getenv('SECRETS_AWS_S3_ACCESS_KEY_ID')
+AWS_S3_SECRET_ACCESS_KEY = os.getenv('SECRETS_AWS_S3_SECRET_ACCESS_KEY')
 
-AWS_STORAGE_BUCKET_NAME = SECRETS_AWS_STORAGE_BUCKET_NAME
+AWS_STORAGE_BUCKET_NAME = os.getenv('SECRETS_AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
