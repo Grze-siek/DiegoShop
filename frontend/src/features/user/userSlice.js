@@ -177,11 +177,14 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    resetUserLogin: (state) => {
+      state.userLogin = initialState.userLogin;
+    },
     resetUserUpdateProfile: (state) => {
       state.userUpdateProfile = initialState.userUpdateProfile;
     },
     resetUserRegister: (state) => {
-      state.userUpdateProfile = initialState.userUpdateProfile;
+      state.userRegister = initialState.userRegister;
     },
     resetUserUpdate: (state) => {
       return {
@@ -197,7 +200,7 @@ export const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.userRegister.isLoading = false;
-        state.userRegister = initialState.userRegister;
+        state.userRegister.user = action.payload;
         state.userLogin.userInfo = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
@@ -288,5 +291,10 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserUpdate, resetUserUpdateProfile } = userSlice.actions;
+export const {
+  resetUserLogin,
+  resetUserUpdate,
+  resetUserRegister,
+  resetUserUpdateProfile,
+} = userSlice.actions;
 export default userSlice.reducer;

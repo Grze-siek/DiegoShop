@@ -44,7 +44,7 @@ function ProductList() {
   useEffect(() => {
     dispatch(resetProductCreate());
 
-    if (!userInfo.isAdmin) {
+    if (!userInfo.isAdmin || !userInfo) {
       navigate('/login');
     }
 

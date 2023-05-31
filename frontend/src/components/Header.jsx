@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { logout } from '../features/user/userSlice';
+import { logout, resetUserLogin } from '../features/user/userSlice';
 import SearchBox from './SearchBox';
 
 function Header() {
@@ -17,6 +17,7 @@ function Header() {
 
   const logoutHandler = () => {
     dispatch(logout());
+    dispatch(resetUserLogin());
     navigate('/');
   };
 

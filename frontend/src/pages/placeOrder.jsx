@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder, resetOrderCreate } from '../features/order/orderSlice';
+import { resetCartItems } from '../features/cart/cartSlice';
 
 function PlaceOrder() {
   const {
@@ -39,8 +40,9 @@ function PlaceOrder() {
     if (isSuccess) {
       navigate(`/order/${order._id}`);
       dispatch(resetOrderCreate());
+      dispatch(resetCartItems());
     }
-  }, [isSuccess, navigate, order._id]);
+  }, [dispatch, isSuccess, navigate, order._id]);
 
   const placeOrder = () => {
     dispatch(

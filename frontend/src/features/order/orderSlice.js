@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import orderService from './orderService';
-import { resetCart } from '../cart/cartSlice';
+import { resetCartItems } from '../cart/cartSlice';
 
 const initialState = {
   orderList: {
@@ -70,7 +70,7 @@ export const createOrder = createAsyncThunk(
       const createdOrder = await orderService.createOrder(order, token);
 
       // Reset the cartItems state to an empty array
-      thunkAPI.dispatch(resetCart());
+      thunkAPI.dispatch(resetCartItems());
       return createdOrder;
     } catch (error) {
       const message =

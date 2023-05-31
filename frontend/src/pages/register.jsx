@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import Message from '../components/Message';
 import Spinner from '../components/Spinner';
-import { register } from '../features/user/userSlice';
+import { register, resetUserRegister } from '../features/user/userSlice';
 
 function Register() {
   const [name, setName] = useState('');
@@ -21,7 +21,7 @@ function Register() {
   const redirect = location.search
     ? new URLSearchParams(location.search).get('redirect')
     : '/';
-
+  console.log(redirect);
   const {
     user,
     isLoading,
@@ -31,6 +31,7 @@ function Register() {
 
   useEffect(() => {
     if (user) {
+      dispatch(resetUserRegister());
       navigate(redirect);
     }
   }, [redirect, navigate, user]);

@@ -23,9 +23,9 @@ function Shipping() {
     shippingAddress ? shippingAddress.country : ''
   );
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    await dispatch(saveShippingAddress({ address, city, postalCode, country }));
     navigate('/payment');
   };
 
